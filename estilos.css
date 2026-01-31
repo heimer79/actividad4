@@ -12,7 +12,7 @@ body {
     padding: 20px;
 }
 
-/* Header simple */
+/* Header */
 .main-header {
     margin-bottom: 40px;
     padding-bottom: 20px;
@@ -22,10 +22,10 @@ body {
 .main-header h1 {
     font-size: 24px;
     font-weight: 700;
+    color: #1a1a1a;
 }
 
-
-/* Layout Principal */
+/* Layout Principal (Grid de 2 columnas: Izquierda ancha, Derecha estrecha) */
 .container {
     display: flex;
     flex-wrap: wrap;
@@ -35,14 +35,22 @@ body {
 }
 
 .cart-items {
-    flex: 2; /* Ocupa el 66% del espacio */
+    flex: 2; /* Ocupa más espacio */
     min-width: 600px;
 }
 
-/* Sistema de Grid para la tabla */
+.cart-summary {
+    flex: 1; /* Ocupa menos espacio */
+    min-width: 300px;
+    background-color: #f9f9f9; /* Color de fondo gris claro */
+    padding: 30px;
+    height: fit-content;
+}
+
+/* Estilos de la Tabla de Productos */
 .cart-row {
     display: grid;
-    /* 2 partes para nombre, 1 para el resto */
+    /* Definición de columnas: Producto grande, resto fijo/auto */
     grid-template-columns: 2fr 1fr 1fr 1fr; 
     align-items: center;
     padding: 25px 0;
@@ -56,14 +64,110 @@ body {
     border-bottom: 1px solid #e5e5e5;
 }
 
-/* Tipografía de productos */
-.col-product h3 {
+/* Detalles del producto */
+.product-info h3 {
     font-size: 18px;
     font-weight: 700;
     margin-bottom: 5px;
+    color: #222;
 }
 
-.col-product .ref {
+.product-info .ref {
     font-size: 13px;
-    color: #888;
+    color: #666;
+}
+
+/* Control de Cantidad */
+.col-qty.control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-qty {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #555;
+    padding: 0 5px;
+}
+
+.col-qty input {
+    width: 50px;
+    height: 40px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #333;
+    outline: none;
+}
+
+/* Precios */
+.col-unit, .col-total {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Estilos del Resumen (Caja Derecha) */
+.cart-summary h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.summary-details {
+    margin-bottom: 20px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #444;
+}
+
+.cart-summary hr {
+    border: 0;
+    border-top: 1px solid #e0e0e0;
+    margin: 20px 0;
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    font-size: 16px;
+    color: #222;
+}
+
+.summary-total .total-amount {
+    font-size: 20px;
+}
+
+/* Responsividad para móviles */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .cart-items {
+        min-width: 100%;
+    }
+
+    .cart-row {
+        grid-template-columns: 1fr 1fr; /* 2 columnas en móvil */
+        gap: 15px;
+    }
+    
+    .header-row {
+        display: none; /* Ocultar encabezados en móvil */
+    }
+    
+    .col-product {
+        grid-column: span 2; /* El nombre ocupa todo el ancho */
+    }
 }
