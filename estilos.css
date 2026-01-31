@@ -1,0 +1,25 @@
+/* Reset básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #fff;
+    color: #333;
+    padding: 20px;
+}
+
+/* Header simple */
+.main-header {
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.main-header h1 {
+    font-size: 24px;
+    font-weight: 700;
+}
