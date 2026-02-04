@@ -10,97 +10,37 @@
 </head>
 <body>
 
-    <header class="main-header">
+    <header class="encabezado-principal">
         <h1>agoodshop</h1>
     </header>
 
-    <div class="container">
+    <div class="contenedor">
         <!-- Sección Izquierda: Lista de Productos -->
-        <section class="cart-items">
-            <!-- Encabezados de la tabla -->
-            <div class="cart-row header-row">
-                <div class="col-product">Producto</div>
-                <div class="col-qty">Cantidad</div>
-                <div class="col-unit">Unidad</div>
+        <section class="articulos-carrito">
+            <div class="fila-carrito fila-encabezado">
+                <div class="col-producto">Producto</div>
+                <div class="col-cantidad">Cantidad</div>
+                <div class="col-unidad">Unidad</div>
                 <div class="col-total">Total</div>
-            </div>
-
-            <!-- Producto 1: iPhone -->
-            <div class="cart-row">
-                <div class="col-product">
-                    <div class="product-info">
-                        <h3>iFhone 13 Pro</h3>
-                        <span class="ref">Ref: 0K3QOSOV4V</span>
-                    </div>
-                </div>
-                <div class="col-qty control">
-                    <button class="btn-qty">-</button>
-                    <input type="text" value="3" readonly>
-                    <button class="btn-qty">+</button>
-                </div>
-                <div class="col-unit">938,99€</div>
-                <div class="col-total">2816,97€</div>
-            </div>
-
-            <!-- Producto 2: Cargador -->
-            <div class="cart-row">
-                <div class="col-product">
-                    <div class="product-info">
-                        <h3>Cargador</h3>
-                        <span class="ref">Ref: TGD5XORY1L</span>
-                    </div>
-                </div>
-                <div class="col-qty control">
-                    <button class="btn-qty">-</button>
-                    <input type="text" value="0" readonly>
-                    <button class="btn-qty">+</button>
-                </div>
-                <div class="col-unit">49,99€</div>
-                <div class="col-total">0€</div>
-            </div>
-
-            <!-- Producto 3: Funda -->
-            <div class="cart-row">
-                <div class="col-product">
-                    <div class="product-info">
-                        <h3>Funda de piel</h3>
-                        <span class="ref">Ref: IOKW9BQ9F3</span>
-                    </div>
-                </div>
-                <div class="col-qty control">
-                    <button class="btn-qty">-</button>
-                    <input type="text" value="2" readonly>
-                    <button class="btn-qty">+</button>
-                </div>
-                <div class="col-unit">79,99€</div>
-                <div class="col-total">159,98€</div>
             </div>
         </section>
 
         <!-- Sección Derecha: Resumen Total -->
-        <aside class="cart-summary">
+        <aside class="resumen-carrito">
             <h2>Total</h2>
             
-            <div class="summary-details">
-                <div class="summary-row">
-                    <span>iPhone 13 Pro</span>
-                    <span>2816,97€</span>
-                </div>
-                <div class="summary-row">
-                    <span>Funda de piel</span>
-                    <span>159,98€</span>
-                </div>
+            <div class="detalles-resumen">
             </div>
 
             <hr>
 
-            <div class="summary-total">
+            <div class="total-resumen">
                 <span>TOTAL</span>
-                <span class="total-amount">5820€</span>
+                <span class="monto-total">0.00€</span>
             </div>
         </aside>
     </div>
 
-    <script  tyoe="module" src="app.js"></script>
+    <script  type="module" src="app.js"></script>
 </body>
 </html>

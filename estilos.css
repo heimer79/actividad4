@@ -12,21 +12,21 @@ body {
     padding: 20px;
 }
 
-/* Header */
-.main-header {
+/* Encabezado */
+.encabezado-principal {
     margin-bottom: 40px;
     padding-bottom: 20px;
     border-bottom: 1px solid #e5e5e5;
 }
 
-.main-header h1 {
+.encabezado-principal h1 {
     font-size: 24px;
     font-weight: 700;
     color: #1a1a1a;
 }
 
 /* Layout Principal (Grid de 2 columnas: Izquierda ancha, Derecha estrecha) */
-.container {
+.contenedor {
     display: flex;
     flex-wrap: wrap;
     gap: 40px;
@@ -34,12 +34,12 @@ body {
     margin: 0 auto;
 }
 
-.cart-items {
+.articulos-carrito {
     flex: 2; /* Ocupa más espacio */
     min-width: 600px;
 }
 
-.cart-summary {
+.resumen-carrito {
     flex: 1; /* Ocupa menos espacio */
     min-width: 300px;
     background-color: #f9f9f9; /* Color de fondo gris claro */
@@ -48,7 +48,7 @@ body {
 }
 
 /* Estilos de la Tabla de Productos */
-.cart-row {
+.fila-carrito {
     display: grid;
     /* Definición de columnas: Producto grande, resto fijo/auto */
     grid-template-columns: 2fr 1fr 1fr 1fr; 
@@ -57,7 +57,7 @@ body {
     border-bottom: 1px solid #f0f0f0;
 }
 
-.header-row {
+.fila-encabezado {
     font-size: 14px;
     color: #555;
     padding-bottom: 15px;
@@ -65,26 +65,26 @@ body {
 }
 
 /* Detalles del producto */
-.product-info h3 {
+.info-producto h3 {
     font-size: 18px;
     font-weight: 700;
     margin-bottom: 5px;
     color: #222;
 }
 
-.product-info .ref {
+.info-producto .referencia {
     font-size: 13px;
     color: #666;
 }
 
 /* Control de Cantidad */
-.col-qty.control {
+.col-cantidad.controles {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.btn-qty {
+.btn-cantidad {
     background: none;
     border: none;
     font-size: 18px;
@@ -93,7 +93,7 @@ body {
     padding: 0 5px;
 }
 
-.col-qty input {
+.col-cantidad input {
     width: 50px;
     height: 40px;
     text-align: center;
@@ -105,23 +105,23 @@ body {
 }
 
 /* Precios */
-.col-unit, .col-total {
+.col-unidad, .col-total {
     font-size: 16px;
     color: #333;
 }
 
 /* Estilos del Resumen (Caja Derecha) */
-.cart-summary h2 {
+.resumen-carrito h2 {
     font-size: 22px;
     font-weight: 700;
     margin-bottom: 25px;
 }
 
-.summary-details {
+.detalles-resumen {
     margin-bottom: 20px;
 }
 
-.summary-row {
+.fila-resumen {
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
@@ -129,13 +129,13 @@ body {
     color: #444;
 }
 
-.cart-summary hr {
+.resumen-carrito hr {
     border: 0;
     border-top: 1px solid #e0e0e0;
     margin: 20px 0;
 }
 
-.summary-total {
+.total-resumen {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -144,30 +144,30 @@ body {
     color: #222;
 }
 
-.summary-total .total-amount {
+.total-resumen .monto-total {
     font-size: 20px;
 }
 
 /* Responsividad para móviles */
 @media (max-width: 768px) {
-    .container {
+    .contenedor {
         flex-direction: column;
     }
     
-    .cart-items {
+    .articulos-carrito {
         min-width: 100%;
     }
 
-    .cart-row {
+    .fila-carrito {
         grid-template-columns: 1fr 1fr; /* 2 columnas en móvil */
         gap: 15px;
     }
     
-    .header-row {
+    .fila-encabezado {
         display: none; /* Ocultar encabezados en móvil */
     }
     
-    .col-product {
+    .col-producto {
         grid-column: span 2; /* El nombre ocupa todo el ancho */
     }
 }

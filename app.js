@@ -1,25 +1,20 @@
 'use strict';
 
-import { Carrito } from './modules/Carrito';
+import { Carrito } from './modules/Carrito.js';
 
-// PEGA AQUÍ TU URL DE JSONBLOB
-const API_URL = 'https://api.jsonblob.com/019c1efb-d734-7de1-b3a5-2d63ae986d32'; 
+// URL de la API (JSONBlob) con los productos
+const URL_API = 'https://api.jsonblob.com/019c1efb-d734-7de1-b3a5-2d63ae986d32'; 
 
-let carrito; // Instancia de la clase
+let carrito;
 
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        // 1. Llamada a la API
-        const response = await fetch(API_URL);
-        const data = await response.json();
+        const respuesta = await fetch(URL_API);
+        const datos = await respuesta.json();
 
-        // 2. Instanciar la clase Carrito
-        carrito = new Carrito(data.products);
+        carrito = new Carrito(datos.products);
 
-        // 3. Renderizar la lista de productos
-        renderizarProductos(data.products);
-        
-        // 4. Renderizar el resumen inicial (todo a 0)
+        renderizarProductos(datos.products);
         actualizarResumen();
 
     } catch (error) {
@@ -27,41 +22,89 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+/**
+ * Renderiza la lista de productos en el DOM
+ * @param {Array} productos - Array de productos
+ */
 function renderizarProductos(productos) {
-    const contenedor = document.querySelector('.cart-items');
+    const contenedor = document.querySelector('.articulos-carrito');
     
-    // Mantenemos el header de la tabla, borramos los productos hardcodeados
-    const header = document.querySelector('.header-row');
+    const encabezado = document.querySelector('.fila-encabezado');
     contenedor.innerHTML = ''; 
-    contenedor.appendChild(header);
+    contenedor.appendChild(encabezado);
 
-    productos.forEach(prod => {
-        // Creamos el HTML para cada fila
-        const row = document.createElement('div');
-        row.classList.add('cart-row');
-        row.dataset.sku = prod.SKU; // Guardamos el SKU en el DOM para usarlo luego
+    productos.forEach(producto => {
+        const fila = document.createElement('div');
+        fila.classList.add('fila-carrito');
+        fila.dataset.sku = producto.SKU;
 
-        row.innerHTML = `
-            <div class="col-product">
-                <div class="product-info">
-                    <h3>${prod.title}</h3>
-                    <span class="ref">Ref: ${prod.SKU}</span>
+        fila.innerHTML = `
+            <div class="col-producto">
+                <div class="info-producto">
+                    <h3>${producto.title}</h3>
+                    <span class="referencia">Ref: ${producto.SKU}</span>
                 </div>
             </div>
-            <div class="col-qty control">
-                <button class="btn-qty btn-minus">-</button>
+            <div class="col-cantidad controles">
+                <button class="btn-cantidad btn-menos">-</button>
                 <input type="text" value="0" readonly>
-                <button class="btn-qty btn-plus">+</button>
+                <button class="btn-cantidad btn-mas">+</button>
             </div>
-            <div class="col-unit">${prod.price}€</div>
+            <div class="col-unidad">${producto.price}€</div>
             <div class="col-total">0.00€</div>
         `;
 
-        contenedor.appendChild(row);
+        contenedor.appendChild(fila);
+        
+        const botonMenos = fila.querySelector('.btn-menos');
+        const botonMas = fila.querySelector('.btn-mas');
+        const inputCantidad = fila.querySelector('input');
+        const columnaTotal = fila.querySelector('.col-total');
+
+        botonMas.addEventListener('click', () => {
+            let cantidad = Number.parseInt(inputCantidad.value);
+            cantidad++;
+            inputCantidad.value = cantidad;
+            carrito.actualizarUnidades(producto.SKU, cantidad);
+            columnaTotal.textContent = (producto.price * cantidad).toFixed(2) + '€';
+            actualizarResumen();
+        });
+
+        botonMenos.addEventListener('click', () => {
+            let cantidad = Number.parseInt(inputCantidad.value);
+            if (cantidad > 0) {
+                cantidad--;
+                inputCantidad.value = cantidad;
+                carrito.actualizarUnidades(producto.SKU, cantidad);
+                columnaTotal.textContent = (producto.price * cantidad).toFixed(2) + '€';
+                actualizarResumen();
+            }
+        });
     });
 }
 
+/**
+ * Actualiza el resumen del carrito en la parte derecha
+ * Muestra solo los productos con cantidad > 0 y el total
+ */
 function actualizarResumen() {
-    // Esta función la rellenaremos en el siguiente paso
-    console.log("Resumen actualizado (pendiente de implementación visual)");
+    const resumen = carrito.obtenerCarrito();
+    const detallesResumen = document.querySelector('.detalles-resumen');
+    const montoTotal = document.querySelector('.monto-total');
+    
+    detallesResumen.innerHTML = '';
+    
+    resumen.products.forEach(producto => {
+        if (producto.quantity > 0) {
+            const fila = document.createElement('div');
+            fila.classList.add('fila-resumen');
+            fila.innerHTML = `
+                <span>${producto.title}</span>
+                <span>${producto.subtotal.toFixed(2)}€</span>
+            `;
+            detallesResumen.appendChild(fila);
+        }
+    });
+    
+    montoTotal.textContent = resumen.total + '€';
 }
