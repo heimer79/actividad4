@@ -2,14 +2,19 @@
 
 import { Carrito } from './modules/Carrito.js';
 
-// URL de la API (JSONBlob) con los productos
-const URL_API = 'https://api.jsonblob.com/019c1efb-d734-7de1-b3a5-2d63ae986d32'; 
+// URL de la API (Gist Github) con los productos
+const URL_API = 'https://gist.githubusercontent.com/heimer79/a06473264c53baef850c3b9193638e6e/raw/3e9784b1ea0bf4e888e9d45cd301e6a94bf9c35c/data.json'; 
 
 let carrito;
 
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         const respuesta = await fetch(URL_API);
+        
+        if (!respuesta.ok) {
+            throw new Error(`Error HTTP: ${respuesta.status}`);
+        }
+        
         const datos = await respuesta.json();
 
         carrito = new Carrito(datos.products);
@@ -18,7 +23,23 @@ document.addEventListener('DOMContentLoaded', async () => {
         actualizarResumen();
 
     } catch (error) {
-        console.error("Error cargando los productos:", error);
+        console.error("Error cargando los productos desde la API:", error);
+        console.log("Intentando cargar desde el archivo local...");
+        
+        try {
+            const respuesta = await fetch('api-carrito.json');
+            const datos = await respuesta.json();
+
+            carrito = new Carrito(datos.products);
+
+            renderizarProductos(datos.products);
+            actualizarResumen();
+
+            console.log("Productos cargados desde el archivo local");
+        } catch (errorLocal) {
+            console.error("Error cargando los productos desde el archivo local:", errorLocal);
+            alert("No se pudieron cargar los productos. Por favor, intente más tarde.");
+        }
     }
 });
 
